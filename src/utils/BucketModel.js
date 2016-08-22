@@ -1,5 +1,6 @@
 import {config} from '../config.js';
 import 'whatwg-fetch';
+//TODO: add JSON polyfil
 
 function getBuckets(user) {
     return fetch(config.url + '/buckets/' + user.iduser)
@@ -14,7 +15,6 @@ function deleteBucket(idbucket) {
 module.exports.deleteBucket = deleteBucket;
 
 function updateBucket(bucket) {
-    console.log(bucket)
     return fetch(config.url + '/bucket/update/', {
         method: 'POST',
         headers: {

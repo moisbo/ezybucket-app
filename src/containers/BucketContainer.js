@@ -3,7 +3,6 @@ import MainContainer from './MainContainer';
 import Bucket from '../components/Bucket';
 import model from '../utils/BucketModel';
 
-
 function getBuckets() {
     model.getBuckets({iduser: this.props.routeParams.iduser})
         .then((response) => {
@@ -39,10 +38,9 @@ var BucketContainer = React.createClass({
     componentWillUnmount: function () {
         console.log('unmounting')  
     },
-    next: function (e) {
-        e.preventDefault();
+    next: function (id) {
         this.context.router.push({
-            pathname: '/progress/' + this.props.idProgress,
+            pathname: '/progress/' + id,
             state:{
                 buckets: this.state.buckets
             }
@@ -62,14 +60,20 @@ var BucketContainer = React.createClass({
                 })
             }.bind(this));
     },
-    delete: function (idbucket) {
-        console.log('delete '+idbucket);
+    delete: function (idbucket, index) {
         model.deleteBucket(
                 idbucket
             ).then(response => response.json())
             .then(function (response) {
-                getBuckets.bind(this)()
+                //this.state.buckets.splice(index, 1);
+                getBuckets.bind(this)();
+                this.setState({
+                    buckets: this.state.buckets
+                })
             }.bind(this))
+            .catch((err)=>{
+                console.log(err)
+            })
     },
     update: function (e) {
         var b = {
@@ -87,7 +91,6 @@ var BucketContainer = React.createClass({
             bucket: e.target.value,
             idbucket: e.target.id
         };
-        console.log(b);
          model.updateBucket(b)
          .then(response => response.json())
          .then(function () {

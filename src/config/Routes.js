@@ -12,8 +12,8 @@ var Routes = (
         <Route path='/' component={Main}>
             <IndexRoute component={Home}/>
             <Route path='bucket/:iduser' header='Bucket' component={BucketContainer}/>
-            <Route path='progress/:bucket' header='Progress' component={ProgressContainer}/>
-            <Route path='comment/:progress' header='Comment' component={CommentContainer}/>
+            <Route path='progress/:idbucket' header='Progress' component={ProgressContainer}/>
+            <Route path='comment/:idprogress' header='Comment' component={CommentContainer}/>
         </Route>
         
     </Router>

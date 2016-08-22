@@ -37,7 +37,7 @@ var Box = React.createClass({
                     {this.props.items.map((item, index) => {
                         return (
                             <div key={index}>
-                                <IconButton onClick={this.props.delete.bind(null, item.id)}>
+                                <IconButton onClick={this.props.delete.bind(null, item.id, index)}>
                                     <ActionDelete />
                                 </IconButton>
                                 <TextField hintText={this.props.hintText}
@@ -47,7 +47,7 @@ var Box = React.createClass({
                                            name={'' + index}
                                            onChange={this.props.update}
                                            onBlur={this.props.save} />
-                                <IconButton onClick={this.props.next}>
+                                <IconButton onClick={this.props.next.bind(null, item.id)}>
                                     <ActionInput />
                                 </IconButton>
                             </div>
