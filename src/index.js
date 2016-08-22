@@ -1,7 +1,10 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Routes from './config/Routes';
+
+require('./styles.css');
 
 ReactDOM.render(
-    routes,
+    Routes,
     document.getElementById('app')
 );

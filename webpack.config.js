@@ -1,4 +1,8 @@
+'use strict';
+
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var precss       = require('precss');
+var autoprefixer = require('autoprefixer');
 
 var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     template: __dirname + '/src/index.html',
@@ -27,5 +31,8 @@ module.exports = {
     },
     plugins: [
         HtmlWebpackPluginConfig
-    ]
+    ],
+    postcss: function () {
+        return [precss, autoprefixer, postcss-grid]
+    }
 };
