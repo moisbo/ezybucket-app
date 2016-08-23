@@ -6,14 +6,16 @@ function Bucket(props){
     var items = props.buckets.map((item) => {
         return {value: item.bucket, id: item.idbucket}
     });
-    
+
     return (
-        <Box title='Bucket'
+        <Box title='Bucket List'
+             className={props.className}
              items={items}
              update={props.update}
              save={props.save}
              add={props.add}
              delete={props.delete}
+             go={props.go}
              next={props.next}
              idProgress={props.idProgress}
         />

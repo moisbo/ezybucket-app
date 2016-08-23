@@ -12,6 +12,8 @@ function getComments () {
         })
         .then(function(response){
             this.setState({
+                idbucket: this.props.location.state.idbucket,
+                iduser: this.props.location.state.iduser,
                 idprogress: this.props.routeParams.idprogress,
                 buckets: this.props.location.state.buckets,
                 progresses: this.props.location.state.progresses,
@@ -34,9 +36,18 @@ var CommentContainer = React.createClass({
     componentDidMount: function () {
         getComments.bind(this)();
     },
-    next: function (e) {
-        e.preventDefault();
-        console.log('show pop up comment')
+    go: function () {
+        this.context.router.push({
+            pathname: '/progress/' + this.state.idbucket,
+            state:{
+                iduser: this.state.iduser,
+                buckets: this.state.buckets,
+                progresses: this.state.progresses
+            }
+        });
+    },
+    next: function (comment) {
+        console.log('show pop up comment' + comment.id +' '+ comment.value)
     },
     add: function () {
         //console.log('add bucket iduser: '+ this.state.iduser)
@@ -91,13 +102,14 @@ var CommentContainer = React.createClass({
     render: function () {
         return (
             <MainContainer>
-                <Bucket buckets={this.state.buckets} />
-                <Progress progresses={this.state.progresses} />
+                <Bucket buckets={this.state.buckets} className='box blacken'/>
+                <Progress progresses={this.state.progresses} className='box blacken'/>
                 <Comment comments={this.state.comments}
                          update={this.update}
                          save={this.save}
                          add={this.add}
                          delete={this.delete}
+                         go={this.go}
                          next={this.next} />
             </MainContainer>
         )

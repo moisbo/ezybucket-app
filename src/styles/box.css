@@ -1,8 +1,15 @@
 
 .box{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    padding:20px;
+    margin:20px;
+    display: inline-block;
+    background: white;
+    overflow: hidden;
+}
+.blacken {
+    filter: grayscale(100%);
+    background-color: #999999;
+    opacity: 0.4;
 }
 input{
     color: #D14348 !important;

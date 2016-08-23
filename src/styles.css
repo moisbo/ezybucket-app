@@ -3,3 +3,10 @@
 body{
     margin:0;
 }
+.flex-container{
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    align-content: center;
+}

@@ -11,7 +11,9 @@ function MainContainer (props) {
                     title='Bucket List'
                     iconElementLeft={<Link to='/'><IconButton><NavigationClose /></IconButton></Link>}
                 />
-            {props.children}
+            <div className='flex-container'>
+                {props.children}
+            </div>
         </div>
     )
 }

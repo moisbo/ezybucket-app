@@ -9,6 +9,7 @@ import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import ActionInput from 'material-ui/svg-icons/action/input';
+import ActionGo from 'material-ui/svg-icons/action/list';
 
 const style = {
     marginRight: 20
@@ -17,22 +18,26 @@ const style = {
 var Box = React.createClass({
     getDefaultProps: function () {
       return {
+          className:'box',
+          title:'',
           add: () => {},
-          delete: () => {},
           update: () => {},
+          delete: () => {},
+          go: () => {},
           next: () => {},
           save: () => {}
       }
     },
     render: function () {
         return (
-            <Card className='box'>
+            <Card className={this.props.className} style={this.props.style} >
                 <CardHeader
                     title={this.props.title}
-                    subtitle="Subtitle"
-                    actAsExpander={true}
-                    showExpandableButton={true}
-                />
+                    subtitle={this.props.subtitle} >
+                    <IconButton onClick={this.props.go}>
+                        <ActionGo />
+                    </IconButton>
+                </CardHeader>
                 <CardActions>
                     {this.props.items.map((item, index) => {
                         return (
@@ -47,19 +52,13 @@ var Box = React.createClass({
                                            name={'' + index}
                                            onChange={this.props.update}
                                            onBlur={this.props.save} />
-                                <IconButton onClick={this.props.next.bind(null, item.id)}>
+                                <IconButton onClick={this.props.next.bind(null, item)}>
                                     <ActionInput />
                                 </IconButton>
                             </div>
                         )
                     })}
                 </CardActions>
-                <CardText expandable={true}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                    Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                    Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-                </CardText>
                 <FloatingActionButton
                     onClick={this.props.add}
                     style={style}>
@@ -75,6 +74,7 @@ var Box = React.createClass({
         delete: React.PropTypes.func.isRequired,
         update: React.PropTypes.func.isRequired,
         save: React.PropTypes.func.isRequired,
+        go: React.PropTypes.func.isRequired,
         next: React.PropTypes.func.isRequired
     }
 });

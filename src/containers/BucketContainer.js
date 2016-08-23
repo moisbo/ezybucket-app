@@ -10,8 +10,8 @@ function getBuckets() {
         })
         .then(function(response){
             this.setState({
-                buckets: response,
-                iduser: this.props.routeParams.iduser
+                iduser: this.props.routeParams.iduser,
+                buckets: response
             })
         }.bind(this))
 }
@@ -20,16 +20,11 @@ var BucketContainer = React.createClass({
     contextTypes: {
         router: React.PropTypes.object.isRequired
     },
-    getDefaultProps:function () {
-        return {
-            idProgress:1
-        }
-    },
     getInitialState: function() {
         return {
-            iduser: 0,
+            iduser: '',
             buckets: [],
-            bucket:''
+            bucket: ''
         }
     },
     componentDidMount: function() {
@@ -38,10 +33,17 @@ var BucketContainer = React.createClass({
     componentWillUnmount: function () {
         console.log('unmounting')  
     },
-    next: function (id) {
+    go: function () {
         this.context.router.push({
-            pathname: '/progress/' + id,
+            pathname: '/'
+        });
+    },
+    next: function (bucket) {
+        this.context.router.push({
+            pathname: '/progress/' + bucket.id,
             state:{
+                iduser: this.state.iduser,
+                title: bucket.value,
                 buckets: this.state.buckets
             }
         });
@@ -67,9 +69,9 @@ var BucketContainer = React.createClass({
             .then(function (response) {
                 //this.state.buckets.splice(index, 1);
                 getBuckets.bind(this)();
-                this.setState({
+                /*this.setState({
                     buckets: this.state.buckets
-                })
+                })*/
             }.bind(this))
             .catch((err)=>{
                 console.log(err)
@@ -108,6 +110,7 @@ var BucketContainer = React.createClass({
                         save={this.save}
                         add={this.add}
                         delete={this.delete}
+                        go={this.go}
                         next={this.next} />
             </MainContainer>
         )

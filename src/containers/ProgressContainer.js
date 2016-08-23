@@ -10,8 +10,9 @@ function getProgresses () {
             return response.json()
         })
         .then(function(response){
-
             this.setState({
+                title: this.props.location.state.title,
+                iduser: this.props.location.state.iduser,
                 idbucket: this.props.routeParams.idbucket,
                 buckets: this.props.location.state.buckets,
                 progresses: response
@@ -25,6 +26,7 @@ var ProgressContainer = React.createClass({
     },
     getInitialState: function() {
         return {
+            iduser:'',
             buckets: [],
             idbucket:'',
             progresses: []
@@ -33,10 +35,21 @@ var ProgressContainer = React.createClass({
     componentDidMount: function () {
         getProgresses.bind(this)();
     },
-    next: function (id) {
+    go: function () {
         this.context.router.push({
-            pathname: '/comment/' + id,
+            pathname: '/bucket/' + this.state.iduser,
             state:{
+                buckets: this.state.buckets
+            }
+        });
+    },
+    next: function (progress) {
+        this.context.router.push({
+            pathname: '/comment/' + progress.id,
+            state:{
+                title: progress.value,
+                iduser: this.state.iduser,
+                idbucket: this.state.idbucket,
                 buckets: this.state.buckets,
                 progresses: this.state.progresses
             }
@@ -99,13 +112,15 @@ var ProgressContainer = React.createClass({
     render: function () {
         return (
             <MainContainer>
-                <Bucket buckets={this.state.buckets} />
-                <Progress progresses={this.state.progresses}
+                <Bucket buckets={this.state.buckets} className='box blacken'/>
+                <Progress title={this.state.title}
+                          progresses={this.state.progresses}
                           add={this.add}
                           update={this.update}
                           save={this.save}
                           add={this.add}
                           delete={this.delete}
+                          go={this.go}
                           next={this.next} />
             </MainContainer>
         )
