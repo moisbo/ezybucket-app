@@ -4,12 +4,13 @@ import MainContainer from '../containers/MainContainer';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import ContentAdd from 'material-ui/svg-icons/navigation/arrow-forward';
+import {Card, CardActions, CardHeader} from 'material-ui/Card';
 
 injectTapEventPlugin();
 
 const style = {
-    marginRight: 20
+    margin: 20
 };
 
 var Home = React.createClass({
@@ -20,11 +21,19 @@ var Home = React.createClass({
         var iduser = 1;
         return (
             <MainContainer>
-                <Link to={'bucket/'+ iduser} >
-                    <FloatingActionButton style={style}>
-                        <ContentAdd />
-                    </FloatingActionButton>
-                </Link>
+                <Card className='box'>
+                    <CardHeader
+                        title='Welcome to a demo app for EzyCollect, please proceed to create your bucket list'>
+                    </CardHeader>
+                    <CardActions>
+                    <Link to={'bucket/'+ iduser} >
+                        <FloatingActionButton 
+                            style={style}>
+                            <ContentAdd />
+                        </FloatingActionButton>
+                    </Link>
+                    </CardActions>
+                </Card>
             </MainContainer>
         )
     }

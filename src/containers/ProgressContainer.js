@@ -112,7 +112,7 @@ var ProgressContainer = React.createClass({
     render: function () {
         return (
             <MainContainer>
-                <Bucket buckets={this.state.buckets} className='box blacken'/>
+                {/*<Bucket buckets={this.state.buckets} className='box blacken'/>*/}
                 <Progress title={this.state.title}
                           progresses={this.state.progresses}
                           add={this.add}

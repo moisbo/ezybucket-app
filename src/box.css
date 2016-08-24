@@ -1,10 +1,10 @@
-
-.box{
-    padding:20px;
-    margin:20px;
-    display: inline-block;
-    background: white;
-    overflow: hidden;
+.box-back {
+    text-align: right;
+}
+.box {
+}
+.box-add {
+    text-align: center;
 }
 .blacken {
     filter: grayscale(100%);

@@ -4,6 +4,7 @@ import Bucket from '../components/Bucket';
 import Progress from '../components/Progress';
 import Comment from '../components/Comment';
 import model from '../utils/CommentModel';
+import UploadPicture from '../components/UploadPicture';
 
 function getComments () {
     model.getComments({idprogress: this.props.routeParams.idprogress})
@@ -12,6 +13,7 @@ function getComments () {
         })
         .then(function(response){
             this.setState({
+                title: this.props.location.state.title,
                 idbucket: this.props.location.state.idbucket,
                 iduser: this.props.location.state.iduser,
                 idprogress: this.props.routeParams.idprogress,
@@ -30,7 +32,9 @@ var CommentContainer = React.createClass({
         return {
             buckets: [],
             progresses: [],
-            comments: []
+            comments: [],
+            open: false,
+            comment:{}
         }
     },
     componentDidMount: function () {
@@ -47,7 +51,16 @@ var CommentContainer = React.createClass({
         });
     },
     next: function (comment) {
-        console.log('show pop up comment' + comment.id +' '+ comment.value)
+        console.log('show pop up comment' + comment.id +' '+ comment.value);
+        model.getImage(comment)
+            .then(res => res.json())
+            .then(function (response) {
+                comment.picture = response;
+                this.setState({
+                    open: true,
+                    comment: comment
+                });
+            }.bind(this));
     },
     add: function () {
         //console.log('add bucket iduser: '+ this.state.iduser)
@@ -99,18 +112,74 @@ var CommentContainer = React.createClass({
                 console.error(err)
             })
     },
+    submit: function (e) {
+
+        var title = e.target.dataset.name;
+        var b = {
+            picture: e.target.files[0],
+            idcomment: e.target.id,
+            value: title
+        };
+        //TODO: Test if image
+        model.uploadImage(b)
+            .then(response => response.json())
+            .then(function () {
+                this.setState({
+                    title: title,
+                    comment: b
+                });
+            }.bind(this))
+            .catch((err) => {
+                console.error(err);
+            })
+    },
+    deleteImage: function (e) {
+
+        var title = e.target.dataset.name;
+        var b = {
+            picture: new Blob(), //TODO: Add polyfill
+            idcomment: e.target.id,
+            value: title
+        };
+        model.uploadImage(b)
+            .then(response => response.json())
+            .then(function () {
+                this.setState({
+                    title: title,
+                    comment: b
+                });
+            }.bind(this))
+            .catch((err) => {
+                console.error(err);
+            })
+    },
+    close: function () {
+        console.log('close');
+        this.setState({
+            open: false,
+            idcomment: null
+        });
+    },
     render: function () {
         return (
             <MainContainer>
-                <Bucket buckets={this.state.buckets} className='box blacken'/>
-                <Progress progresses={this.state.progresses} className='box blacken'/>
-                <Comment comments={this.state.comments}
+                {/*<Bucket buckets={this.state.buckets} className='box blacken'/>
+                <Progress progresses={this.state.progresses} className='box blacken'/>*/}
+                <Comment title={this.state.title}
+                         comments={this.state.comments}
                          update={this.update}
                          save={this.save}
                          add={this.add}
                          delete={this.delete}
                          go={this.go}
                          next={this.next} />
+                <UploadPicture
+                    comment={this.state.comment}
+                    open={this.state.open}
+                    submit={this.submit}
+                    deleteImage={this.deleteImage}
+                    close={this.close}
+                    />
             </MainContainer>
         )
     }

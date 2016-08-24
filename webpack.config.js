@@ -11,7 +11,7 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'eval',
     entry: [
         './src/index.js'
     ],

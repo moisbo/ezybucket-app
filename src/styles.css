@@ -1,12 +1,36 @@
-@import './styles/box.css';
+@import './box.css';
 
-body{
-    margin:0;
+html, body {
+    height: 100%;
 }
+
+body {
+    margin: 0;
+}
+
+.appear-enter {
+    transition-duration: .7s;
+    transition-property: opacity;
+    transition-timing-function: ease-out;
+    opacity: 0;
+}
+
+.appear-enter.appear-enter-active {
+    opacity: 1;
+}
+
+.appear-leave {
+    opacity: 0;
+}
+
 .flex-container{
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: stretch;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    align-content: center;
+    flex-wrap: wrap;
+    min-height: 500px;
+}
+.row {
+    width: auto;
 }

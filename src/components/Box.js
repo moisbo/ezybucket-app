@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardHeader} from 'material-ui/Card';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -9,10 +9,11 @@ import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import ActionInput from 'material-ui/svg-icons/action/input';
-import ActionGo from 'material-ui/svg-icons/action/list';
+import ActionGo from 'material-ui/svg-icons/navigation/arrow-back';
+import {red500} from 'material-ui/styles/colors';
 
-const style = {
-    marginRight: 20
+const addButton = {
+    margin: 20
 };
 
 var Box = React.createClass({
@@ -34,10 +35,13 @@ var Box = React.createClass({
                 <CardHeader
                     title={this.props.title}
                     subtitle={this.props.subtitle} >
-                    <IconButton onClick={this.props.go}>
-                        <ActionGo />
-                    </IconButton>
                 </CardHeader>
+                <div className='box-back'>
+                    <IconButton
+                        onClick={this.props.go} >
+                        <ActionGo color={red500} />
+                    </IconButton>
+                </div>
                 <CardActions>
                     {this.props.items.map((item, index) => {
                         return (
@@ -55,15 +59,18 @@ var Box = React.createClass({
                                 <IconButton onClick={this.props.next.bind(null, item)}>
                                     <ActionInput />
                                 </IconButton>
-                            </div>
+                            </div> 
                         )
                     })}
                 </CardActions>
-                <FloatingActionButton
-                    onClick={this.props.add}
-                    style={style}>
-                    <ContentAdd />
-                </FloatingActionButton>
+                <div className='box-add'>
+                    <FloatingActionButton
+                        onClick={this.props.add}
+                        style={addButton}
+                    >
+                        <ContentAdd />
+                    </FloatingActionButton>
+                </div>
             </Card>
         )
     },
