@@ -30,3 +30,5 @@ To install:
 - Improve readability of code
 - Design to be more flexible
 - Improve transition animations
+- Handle Errors
+- Handle Users

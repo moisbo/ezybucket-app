@@ -1,7 +1,11 @@
 {
   "name": "ezybucket-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ezyBucket Front End",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moisbo/ezybucket-app"
+  },
   "main": "index.js",
   "dependencies": {
     "material-ui": "^0.15.4",
